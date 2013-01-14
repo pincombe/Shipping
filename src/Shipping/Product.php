@@ -13,7 +13,7 @@ class Product
 
     private $account_id;
 
-    public function __construct($id, $name, $stock_id, $account_id, $last_ordered)
+    public function __construct($id, $name, $stock_id, $last_ordered)
 	{
 		$this->id = $id;
 		$this->name = $name;
@@ -27,5 +27,9 @@ class Product
 		return $this->account_id;
 	}
 
+	public function setAccountID($account_id)
+	{
+		$this->account_id = $account_id;
+	}
 
 }

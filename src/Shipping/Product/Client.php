@@ -2,6 +2,8 @@
 
 namespace Shipping\Product;
 
+use \Shipping\Product;
+
 class ClientException extends \Exception {}
 
 class Client extends \Transmit\Client
@@ -11,13 +13,22 @@ class Client extends \Transmit\Client
 	public function fetchAll()
 	{
 		$response = $this->get('/product');
-		return json_decode($response);
+
+		$products = array();
+		foreach (json_decode($response) as $product) {
+			$products[] = new Product($product->id, $product->name, $product->stock_id, $product->last_ordered);
+		}
+
+		return $products;
 	}
 
 	public function fetch($id)
 	{
 		$response = $this->get(sprintf('/product/%d', $id));
-		return json_decode($response);
+
+		$product = json_decode($response)
+
+		return new Product($product->id, $product->name, $product->stock_id, $product->last_ordered);
 	}
 
 	public function createNew($name, $stock_id, $last_ordered = 0)
