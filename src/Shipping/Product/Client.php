@@ -26,7 +26,7 @@ class Client extends \Transmit\Client
 	{
 		$response = $this->get(sprintf('/product/%d', $id));
 
-		$product = json_decode($response)
+		$product = json_decode($response);
 
 		return new Product($product->id, $product->name, $product->stock_id, $product->last_ordered);
 	}
