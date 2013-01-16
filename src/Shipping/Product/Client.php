@@ -37,5 +37,11 @@ class Client extends \Transmit\Client
 		return json_decode($response);
 	}
 
+	public function delete($id)
+	{
+		$response = $this->delete(sprintf('/product/%d', $id));
+		return json_decode($response);
+	}
+
 
 }
