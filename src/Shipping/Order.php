@@ -18,12 +18,9 @@ class Order
     public $customer;
     public $items = array();
 
-    private $account_id;
-
-    public function __construct($id, $account_id, $status, $created)
+    public function __construct($id, $status, $created)
 	{
 		$this->id = $id;
-		$this->account_id = $account_id;
 		$this->status = $status;
 		$this->created = $created;
 	}
