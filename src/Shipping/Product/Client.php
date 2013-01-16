@@ -22,12 +22,16 @@ class Client extends \Transmit\Client
 		return $products;
 	}
 
+	public function save(Product $product)
+	{
+		$response = $this->post(sprintf('product/%d', $id));
+		return json_decode($response);
+	}
+
 	public function fetch($id)
 	{
 		$response = $this->get(sprintf('/product/%d', $id));
-
 		$product = json_decode($response);
-
 		return new Product($product->id, $product->name, $product->stock_id, $product->last_ordered);
 	}
 
