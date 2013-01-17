@@ -15,27 +15,30 @@ class Client extends \Transmit\Client
 
 	public function fetchAll()
 	{
-		$response = $this->get('/order');
-		return json_decode($response);
+		$response = $this->_get('/order');
+		return \Shipping\Order::loadAll(json_decode($response));
 	}
 
 	public function fetch($id)
 	{
-		$response = $this->get(sprintf('/order/%d', $id));
-		return json_decode($response);
-	}
-
-	public function createNew(Address $address, Customer $customer, $items = array())
-	{
-		$response = $this->post('/order', json_encode(array('address' => $address, 'customer' => $customer, 'items' => $items)));
-		return json_decode($response);
+		$response = $this->_get(sprintf('/order/%d', $id));
+		return \Shipping\Order::load(json_decode($response));
 	}
 
 	public function save(Order $order)
 	{
-		$response = $this->post(sprintf('/order/%d', $order->id), json_encode($order));
-		return json_decode($response);
+		if ($order->id == 0) {
+			$response = $this->_post('/order', json_encode($order));
+			return \Shipping\Order::load(json_decode($response));
+		}
+
+		$response = $this->_put(sprintf('/order/%d', $order->id), json_encode($order));
+		return \Shipping\Order::load(json_decode($response));
 	}
 
+	public function delete($id)
+	{
+		$this->_delete(sprintf('/order/%d', $id));
+	}
 
 }

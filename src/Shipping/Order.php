@@ -40,8 +40,47 @@ class Order
 		$this->items[] = $item;
 	}
 
-	public function getAccountID()
+	public static function loadAll($data)
 	{
-		return $this->account_id;
+		$orders = array();
+
+		foreach ($data as $order) {
+			$orders[] = self::load($order);
+		}
+
+		return $orders;
 	}
+
+	public static function load($data)
+	{
+
+		if (empty($data)) {
+			throw new OrderException('Unable to decode json object');
+		}
+
+		$order = new self($data->id, $data->status, $data->created);
+
+		$order->setAddress(new \Shipping\Order\Address($data->address->recipient,
+													   $data->address->organization,
+													   $data->address->address1,
+													   $data->address->address2,
+													   $data->address->city,
+													   $data->address->state,
+													   $data->address->zip_code,
+												       $data->address->country_code));
+
+		$order->setCustomer(new \Shipping\Order\Customer($data->customer->first_name,
+						  							    $data->customer->last_name,
+												 	    $data->customer->email));
+
+		foreach ($data->items as $item) {
+			$order->addItem(new \Shipping\Order\Item($item->product_id, $item->quantity));
+		}
+
+		return $order;
+	}
+
 }
+
+
+
