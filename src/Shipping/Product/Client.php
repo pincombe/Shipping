@@ -24,7 +24,7 @@ class Client extends \Transmit\Client
 
 	public function save(Product $product)
 	{
-		$response = $this->post(sprintf('product/%d', $id));
+		$response = $this->post(sprintf('product/%d', $product->id));
 		return json_decode($response);
 	}
 
