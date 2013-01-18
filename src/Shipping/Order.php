@@ -40,6 +40,12 @@ class Order
 		$this->items[] = $item;
 	}
 
+	public function clearItems()
+	{
+		$this->items = array();
+	}
+
+
 	public static function loadAll($data)
 	{
 		$orders = array();
