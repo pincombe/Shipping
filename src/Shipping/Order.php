@@ -86,7 +86,7 @@ class Order
 						  							     $data->customer->last_name,
 												 	     $data->customer->email));
 
-		$order->setTracking(new \Shipping\Order\Tracking($data->tracking->id, $data->tracking->type));
+		$order->setTracking(new \Shipping\Order\Tracking($data->tracking->id, $data->tracking->type, $data->delivery_time));
 
 		foreach ($data->items as $item) {
 			$order->addItem(new \Shipping\Order\Item($item->product_id, $item->quantity));
