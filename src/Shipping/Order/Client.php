@@ -18,6 +18,12 @@ class Client extends \Transmit\Client
 		$response = $this->_get('/order');
 		return \Shipping\Order::loadAll(json_decode($response));
 	}
+	
+	public function fetchByStatus($status)
+	{
+    	$response = $this->_get(sprintf('/order?%s', http_build_query(array('status' => $status))));
+		return \Shipping\Order::loadAll(json_decode($response));    	
+	}
 
 	public function fetch($id)
 	{
