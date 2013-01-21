@@ -25,6 +25,9 @@ class Order
 		$this->id = $id;
 		$this->status = $status;
 		$this->created = $created;
+
+		$this->setCustomer(new \Shipping\Order\Customer('', '', ''));
+		$this->setTracking(new \Shipping\Order\Tracking('', '', ''));
 	}
 
 	public function setAddress(Address $address)
