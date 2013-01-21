@@ -76,8 +76,8 @@ class Order
 												       $data->address->country_code));
 
 		$order->setCustomer(new \Shipping\Order\Customer($data->customer->first_name,
-						  							    $data->customer->last_name,
-												 	    $data->customer->email));
+						  							     $data->customer->last_name,
+												 	     $data->customer->email));
 
 		foreach ($data->items as $item) {
 			$order->addItem(new \Shipping\Order\Item($item->product_id, $item->quantity));
