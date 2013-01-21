@@ -4,6 +4,7 @@ namespace Shipping;
 
 use \Shipping\Order\Address;
 use \Shipping\Order\Customer;
+use \Shipping\Order\Tracking;
 use \Shipping\Order\Item;
 
 class OrderException extends \Exception {}
@@ -16,6 +17,7 @@ class Order
 
     public $address;
     public $customer;
+    public $tracking;
     public $items = array();
 
     public function __construct($id, $status, $created)
@@ -33,6 +35,11 @@ class Order
 	public function setCustomer(Customer $customer)
 	{
 		$this->customer = $customer;
+	}
+
+	public function setTracking(Tracking $tracking)
+	{
+		$this->tracking = $tracking;
 	}
 
 	public function addItem(Item $item)
