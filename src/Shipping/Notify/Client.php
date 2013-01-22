@@ -9,9 +9,9 @@ class ClientException extends \Exception {}
 class Client extends \Transmit\Client
 {
 
-	public function shipped(Order $order)
+	public function notify(Order $order)
 	{
-		$response = $this->post('/', json_encode(array('name' => $name, 'stock_id' => $stock_id, 'last_ordered' => $last_ordered)));
+		$response = $this->_post('/track-order', json_encode($order));
 		return json_decode($response);
 	}
 
